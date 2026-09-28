@@ -69,6 +69,7 @@ git clone git://busybox.net/busybox.git
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} defconfig
 else
     cd busybox
+    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} defconfig
 fi
 
 # TODO: Make and install busybox
