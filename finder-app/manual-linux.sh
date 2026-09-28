@@ -14,6 +14,8 @@ ARCH=arm64
 CROSS_COMPILE=aarch64-linux-gnu-
 #aarch64-none-linux-gnu-
 
+export PATH=$PATH:/usr/bin:/usr/local/bin:/usr/sbin:/usr/local/sbin
+
 if [ $# -lt 1 ]
 then
 	echo "Using default directory ${OUTDIR} for output"
