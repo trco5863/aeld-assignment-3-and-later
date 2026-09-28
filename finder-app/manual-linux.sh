@@ -11,8 +11,7 @@ KERNEL_VERSION=v5.15.163
 BUSYBOX_VERSION=1_33_1
 FINDER_APP_DIR=$(realpath $(dirname $0))
 ARCH=arm64
-CROSS_COMPILE=aarch64-linux-gnu-
-#aarch64-none-linux-gnu-
+CROSS_COMPILE=aarch64-none-linux-gnu-
 
 export PATH=$PATH:/usr/bin:/usr/local/bin:/usr/sbin:/usr/local/sbin
 
@@ -85,13 +84,11 @@ ${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library"
 
 # TODO: Add library dependencies to rootfs
 SYSROOT=$(${CROSS_COMPILE}gcc -print-sysroot)
-if [ -z "${SYSROOT}" ] || [ "${SYSROOT}" = "/" ]; then
-    SYSROOT=/usr/aarch64-linux-gnu
-fi
-cp ${SYSROOT}/lib*/ld-linux-aarch64.so.1 ${OUTDIR}/rootfs/lib/
-cp ${SYSROOT}/lib*/libm.so.6             ${OUTDIR}/rootfs/lib/
-cp ${SYSROOT}/lib*/libresolv.so.2         ${OUTDIR}/rootfs/lib/
-cp ${SYSROOT}/lib*/libc.so.6             ${OUTDIR}/rootfs/lib/
+
+cp ${SYSROOT}/lib/ld-linux-aarch64.so.1 ${OUTDIR}/rootfs/lib/
+cp ${SYSROOT}/lib64/libm.so.6            ${OUTDIR}/rootfs/lib64/
+cp ${SYSROOT}/lib64/libresolv.so.2        ${OUTDIR}/rootfs/lib64/
+cp ${SYSROOT}/lib64/libc.so.6            ${OUTDIR}/rootfs/lib64/
 
 # TODO: Make device nodes
 sudo mknod -m 666 ${OUTDIR}/rootfs/dev/null c 1 3
